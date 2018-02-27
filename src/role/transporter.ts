@@ -13,6 +13,7 @@ class Transporter extends BaseRole {
   ];
 
   static initialMemory = {
+    ...Transporter.baseMemory,
     role: Role.Transporter,
     state: 0
   };
@@ -26,7 +27,7 @@ class Transporter extends BaseRole {
 
         targets = creep.room.find(FIND_STRUCTURES, {
           filter: function(object: any) {
-            return object.structureType == STRUCTURE_CONTAINER && object.energy > creep.carryCapacity;
+            return object.structureType == STRUCTURE_CONTAINER && object.store[RESOURCE_ENERGY] > creep.carryCapacity;
           }
         });
 
@@ -44,6 +45,19 @@ class Transporter extends BaseRole {
             if(creep.pickup(targets[0]) == ERR_NOT_IN_RANGE) {
               creep.moveTo(targets[0]);
             }
+          }
+          else {
+              targets = creep.room.find(FIND_STRUCTURES, {
+                filter: function(object: any) {
+                  return object.structureType == STRUCTURE_STORAGE && object.store[RESOURCE_ENERGY] < object.storeCapacity;
+                }
+              });
+
+              if(targets.length > 0) {
+                if(creep.withdraw(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                  creep.moveTo(targets[0]);
+                }
+              }
           }
         }
 

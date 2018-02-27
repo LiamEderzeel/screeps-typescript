@@ -12,7 +12,7 @@
     "protocol": "https",
     "hostname": "screeps.com",
     "port": 443,
-    "path": "/",
+    "path": "/api/user/code",
     "branch": "sim"
   },
   "pserver": {

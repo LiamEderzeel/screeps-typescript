@@ -8,7 +8,6 @@
     "lint": "tslint \"src/**/*.ts\"",
     "push-main": "rollup -c --dest main",
     "push-pserver": "rollup -c --dest pserver",
-    "push-pserver-sim": "rollup -c --dest pserver-sim",
     "push-sim": "rollup -c --dest sim",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch-main": "rollup -cw --dest main",

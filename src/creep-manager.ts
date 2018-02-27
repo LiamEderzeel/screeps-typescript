@@ -7,49 +7,13 @@ import Transporter from "./role/transporter";
 import Guardian from "./role/guardian";
 import Claimer from "./role/claimer";
 import Upgrader from "./role/upgrader";
-import { CreepMemoryC, RoomMemoryC, SpawnMemoryC, } from "./memory";
+import { CreepMemoryC, RoomMemoryC, SpawnMemoryC, RoomMemoryTemplate } from "./memory";
 
 
 
 class CreepManager {
 
   static run() {
-    for(let room in Memory.rooms){
-      if((<RoomMemoryC>Memory.rooms[room]).roles == null) {
-        (<RoomMemoryC>Memory.rooms[room]).roles = {
-          0: {
-            available: 0,
-            desired: 1
-          },
-          1: {
-            available: 0,
-            desired: 1
-          },
-          2: {
-            available: 0,
-            desired: 1
-          },
-          3: {
-            available: 0,
-            desired: 1
-          },
-          4: {
-            available: 0,
-            desired: 0
-          },
-          5: {
-            available: 0,
-            desired: 0
-          },
-          6: {
-            available: 0,
-            desired: 0
-          }
-
-        };
-      }
-    }
-
     this.checkIfCreepsNeedToBeSpawend();
 
     for(let name in Game.creeps) {
@@ -84,7 +48,13 @@ class CreepManager {
   static checkIfCreepsNeedToBeSpawend() {
     for(let spawnName in Game.spawns) {
       let spawn = Game.spawns[spawnName];
+
       let roomMemory =  <RoomMemoryC>spawn.room.memory;
+
+      if(roomMemory.roles == null) {
+        roomMemory.roles = RoomMemoryTemplate.roles;
+      }
+
       if(roomMemory.hostiles.length > 0) {
         if(roomMemory.roles[Role.Guardian].available < roomMemory.roles[Role.Guardian].desired) {
           this.spawn(spawn, Role.Guardian);

@@ -11,6 +11,7 @@ class Fixer extends BaseRole {
 
 
   static initialMemory = {
+    ...Fixer.baseMemory,
     role: Role.Fixer,
     state: 0
   }

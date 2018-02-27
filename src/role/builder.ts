@@ -13,6 +13,7 @@ class Builder extends BaseRole {
   ];
 
   static initialMemory = {
+    ...Builder.baseMemory,
     role: Role.Builder,
     state: 0
   };

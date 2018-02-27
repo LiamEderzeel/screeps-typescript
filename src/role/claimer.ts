@@ -24,26 +24,10 @@ class Claimer extends BaseRole {
 
     let memory = <CreepMemoryC>creep.memory;
     switch (memory.state) {
-      case Claimer.State.Traveling:
-        let exitDirection = creep.room.findExitTo(creep.memory.targetRoom);
-        let exit = creep.pos.findClosestByRange(exitDirection);
-        creep.moveTo(exit);
-
-
-        if(creep.room.name == creep.memory.targetRoom) {
-          creep.memory.state = Claimer.State.Claiming;
-        }
-
-        break;
       case Claimer.State.Claiming:
-
-        if (creep.claimController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-          creep.moveTo(creep.room.controller);
+        if (creep.claimController(Game.rooms[creep.memory.targetRoom].controller) == ERR_NOT_IN_RANGE) {
+          creep.moveTo(Game.rooms[creep.memory.targetRoom].controller);
         }
-
-        // if(creep.room != creep.memory.targetRoom) {
-        //   creep.memory.state = Claimer.State.Claiming;
-        // }
         break;
     }
   }
@@ -55,8 +39,7 @@ class Claimer extends BaseRole {
 
 module Claimer {
   export enum State {
-    Traveling,
-      Claiming,
+      Claiming
   }
 }
 

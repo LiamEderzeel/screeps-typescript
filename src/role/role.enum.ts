@@ -5,7 +5,8 @@ enum Role {
     Builder,
     Guardian,
     Claimer,
-    Upgrader
+    Upgrader,
+    Coloniser
 
 }
 
